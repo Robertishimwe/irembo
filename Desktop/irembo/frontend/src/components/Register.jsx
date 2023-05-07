@@ -66,7 +66,7 @@ export default function Register() {
         toast.error(
           err?.response?.data.error
             ? err?.response?.data.error
-            : err?.response?.data.Message,
+            : err?.response?.data.message,
           {
             position: "bottom-right",
             autoClose: 5000,
