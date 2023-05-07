@@ -19,7 +19,7 @@ export default function Users() {
       // setUsers(res.data);
     })
     .catch((err) => {
-      console.log(err);
+      alert(err);
     });
 
   }, [])

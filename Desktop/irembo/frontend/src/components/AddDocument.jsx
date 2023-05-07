@@ -59,7 +59,7 @@ export default function AddDocument() {
       })
       .catch((err) => {
         console.log(err)
-        toast.error((err?.response?.data.error) ? err?.response?.data.error : err?.response?.data.Message, {
+        toast.error((err?.response?.data.error) ? err?.response?.data.error : err?.response?.data.message, {
           position:'bottom-right',
           autoClose: 5000,
         })
