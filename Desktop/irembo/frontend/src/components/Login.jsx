@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "../components/Copyright";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -44,7 +45,10 @@ export default function Login() {
       })
       .catch((err) => {
         console.log(err)
-        alert(err.response.data.error || err.response.data.message)
+        toast.error((err?.response?.data.error) ? err?.response?.data.error : err?.response?.data.message, {
+          position:'bottom-right',
+          autoClose: 5000,
+        })
       });
   };
 

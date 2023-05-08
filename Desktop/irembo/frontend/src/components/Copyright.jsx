@@ -10,8 +10,8 @@ export default function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://irembo.vercel.app">
+        Irembo UMS
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
