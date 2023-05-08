@@ -6,11 +6,9 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import BasicModal from "./ImageModel";
-import Button from '@mui/material/Button';
 import ApproveBtn from './ApproveBtn';
 
 import { Verified } from "@mui/icons-material";
-// import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 function Request({userName,email,status,profilePicture,documentLink, id}) {
   return (

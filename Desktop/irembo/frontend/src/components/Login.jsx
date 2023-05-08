@@ -43,7 +43,8 @@ export default function Login() {
         dispatch(loginMode());
       })
       .catch((err) => {
-        alert(err.response.data.message)
+        console.log(err)
+        alert(err.response.data.error || err.response.data.message)
       });
   };
 
