@@ -7,6 +7,8 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import UpdateProfile from "./components/UpdateProfile";
 import AddDocument from "./components/AddDocument"
+import ForgotPassword from "./components/ForgotPassword"
+import ResetPassword from "./components/ResetPassword"
 import Home from "./components/Home";
 import Cpanel from "./components/Cpanel";
 
@@ -16,6 +18,8 @@ function App() {
       <Route element={<BounceRoute />}>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<Home />} />
