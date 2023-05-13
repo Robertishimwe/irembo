@@ -27,9 +27,9 @@ export default function Login2fa() {
           token,
         });
 
-        const token = res.data.data;
-        const decoded = jwtDecode(token);
-        localStorage.setItem("token", token);
+        const token3 = res.data.data;
+        const decoded = jwtDecode(token3);
+        localStorage.setItem("token", token3);
         localStorage.setItem("loggedUser", JSON.stringify(decoded));
 
         dispatch(logginUser(decoded));
