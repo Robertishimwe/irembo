@@ -5,6 +5,7 @@ import PrivateRoute from './app/privateRoute';
 import AdminRoute from "./app/adminRoute";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Login2fa from "./components/Login2fa";
 import UpdateProfile from "./components/UpdateProfile";
 import AddDocument from "./components/AddDocument"
 import ForgotPassword from "./components/ForgotPassword"
@@ -18,6 +19,7 @@ function App() {
       <Route element={<BounceRoute />}>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/:token" element={<Login2fa />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Route>

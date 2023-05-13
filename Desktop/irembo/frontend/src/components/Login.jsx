@@ -36,19 +36,32 @@ export default function Login() {
       })
       .then((res) => {
         const token = res.data.data;
-        const decoded = jwtDecode(token);
-        localStorage.setItem("token", token);
-        localStorage.setItem("loggedUser", JSON.stringify(decoded));
+        console.log(res.data.data);
+        if (token.isMfaEnabled == true) {
+          return toast.success("Login link was sent to your email", {
+            position: "bottom-right",
+            autoClose: 5000,
+          });
+        } else {
+          const decoded = jwtDecode(token);
+          localStorage.setItem("token", token);
+          localStorage.setItem("loggedUser", JSON.stringify(decoded));
 
-        dispatch(logginUser(decoded));
-        dispatch(loginMode());
+          dispatch(logginUser(decoded));
+          dispatch(loginMode());
+        }
       })
       .catch((err) => {
-        console.log(err)
-        toast.error((err?.response?.data.error) ? err?.response?.data.error : err?.response?.data.message, {
-          position:'bottom-right',
-          autoClose: 5000,
-        })
+        console.log(err);
+        toast.error(
+          err?.response?.data.error
+            ? err?.response?.data.error
+            : err?.response?.data.message,
+          {
+            position: "bottom-right",
+            autoClose: 5000,
+          }
+        );
       });
   };
 
