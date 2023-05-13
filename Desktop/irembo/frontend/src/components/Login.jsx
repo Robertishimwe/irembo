@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "../components/Copyright";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { logginUser } from "../redux/features/auth/loginSlice";
@@ -22,6 +22,7 @@ const theme = createTheme();
 
 export default function Login() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -62,6 +63,9 @@ export default function Login() {
             autoClose: 5000,
           }
         );
+      }) .finally(() => {
+        // Force page refresh
+        location.reload();
       });
   };
 
