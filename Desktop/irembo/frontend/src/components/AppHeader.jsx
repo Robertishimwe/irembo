@@ -213,6 +213,9 @@ export default function AppHeader() {
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
+            onClick={() => {
+              navigate("/");
+            }}
           >
             Irembo
           </Typography>
