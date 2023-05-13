@@ -1,7 +1,9 @@
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -27,8 +29,16 @@ const theme = createTheme();
 export default function UpdateProfile() {
   const navigate = useNavigate();
   const authenticated = useSelector(thisUser);
-  const { email, firstName, lastName, gender,maritalStatus, nationality } = authenticated.user.payload;
-
+  const {
+    email,
+    firstName,
+    lastName,
+    gender,
+    maritalStatus,
+    nationality,
+    isMfaEnabled,
+  } = authenticated.user.payload;
+  const [ twoFaEnabled, setTwoFaEnabled ] = useState(isMfaEnabled);
   const genderOptions = [
     {
       value: "MALE",
@@ -60,8 +70,6 @@ export default function UpdateProfile() {
     },
   ];
 
-  
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -75,13 +83,13 @@ export default function UpdateProfile() {
         nationality: data.get("nationality"),
         maritalStatus: data.get("maritalStatus"),
         images: data.get("profilePicture"),
+        isMfaEnabled: twoFaEnabled,
       })
       .then((res) => {
         console.log(res);
-        console.log(res);
 
         toast.success(
-          "account created successful. you are going to be redirected to login page",
+          "updated successful. you are going to be redirected to home page",
           {
             position: "bottom-right",
             autoClose: 4000,
@@ -210,7 +218,7 @@ export default function UpdateProfile() {
                     autoComplete="maritalStatus"
                     select
                     name="maritalStatus"
-                    defaultValue={maritalStatus}
+                    defaultValue={maritalStatus? maritalStatus: "SINGLE"}
                     fullWidth
                     id="maritalStatus"
                     label="Marital Status"
@@ -225,7 +233,6 @@ export default function UpdateProfile() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    required
                     fullWidth
                     id="profilePicture"
                     name="profilePicture"
@@ -234,6 +241,19 @@ export default function UpdateProfile() {
                   />
                 </Grid>
               </Grid>
+              {/** add togle button to unable 2fa or disable it **/}
+              <Grid item xs={12}>
+                <Switch
+                  defaultChecked={isMfaEnabled}
+                  name="isMfaEnabled"
+                  id="isMfaEnabled"
+                  label="Enable 2FA"
+                  color="primary"
+                  onChange={(e) => setTwoFaEnabled(e.target.checked)}
+                  sx={{ mt: 2 }}
+                />
+              </Grid>
+              {/* {console.log(isMfaEnabled)} */}
               <Button
                 type="submit"
                 fullWidth
