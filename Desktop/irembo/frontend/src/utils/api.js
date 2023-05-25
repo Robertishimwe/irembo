@@ -5,6 +5,6 @@ if (localStorage.token) {
   headers.token = `${localStorage.token}`;
 }
 export default axios.create({
-  baseURL: 'https://irembobackend-production.up.railway.app/api',
+  baseURL: 'https://irembo.cyclic.app/api',
   headers,
 });
