@@ -36,23 +36,125 @@ export default function Register() {
       label: "FEMALE",
     },
   ];
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   api
+  //     .post(`/user/create`, {
+  //       email: data.get("email"),
+  //       password: data.get("password"),
+  //       firstName: data.get("firstName"),
+  //       lastName: data.get("lastName"),
+  //       gender: data.get("gender"),
+  //       dateOfBirth: data.get("dob"),
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+
+  //       toast.success(
+  //         "account created successful. you are going to be redirected to login page",
+  //         {
+  //           position: "bottom-right",
+  //           autoClose: 4000,
+  //         }
+  //       );
+  //       setTimeout(() => {
+  //         navigate("/login");
+  //       }, 4000);
+  //     })
+  //     .catch((err) => {
+  //       toast.error(
+  //         err?.response?.data.error
+  //           ? err?.response?.data.error
+  //           : err?.response?.data.message,
+  //         {
+  //           position: "bottom-right",
+  //           autoClose: 5000,
+  //         }
+  //       );
+  //     });
+  // };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const firstName = data.get("firstName");
+    const lastName = data.get("lastName");
+    const gender = data.get("gender");
+    const email = data.get("email");
+    const password = data.get("password");
+    const dateOfBirth = data.get("dob");
+  
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    // Regular expression for password validation (at least one uppercase letter, one digit, and one special character)
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#*&]+)[\w@#*&]{8,}$/;
+  
+    // Regular expression for date of birth in MM/DD/YYYY format
+    const dateOfBirthRegex = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+  
+    if (firstName.length < 3) {
+      return toast.error("First Name should be at least 3 characters long", {
+        position: "bottom-right",
+        autoClose: 5000,
+      });
+    }
+  
+    if (lastName.length < 3) {
+      return toast.error("Last Name should be at least 3 characters long", {
+        position: "bottom-right",
+        autoClose: 5000,
+      });
+    }
+  
+    if (!genderOptions.some((option) => option.value === gender)) {
+      return toast.error("Please select a valid gender", {
+        position: "bottom-right",
+        autoClose: 5000,
+      });
+    }
+  
+    if (!emailRegex.test(email)) {
+      return toast.error("Please enter a valid email address", {
+        position: "bottom-right",
+        autoClose: 5000,
+      });
+    }
+  
+    if (!passwordRegex.test(password)) {
+      return toast.error(
+        "Password should contain at least one uppercase letter, one digit, and one special character, and be at least 8 characters long",
+        {
+          position: "bottom-right",
+          autoClose: 5000,
+        }
+      );
+    }
+  
+    if (!dateOfBirthRegex.test(dateOfBirth)) {
+      return toast.error("Please enter a valid date of birth (MM/DD/YYYY)", {
+        position: "bottom-right",
+        autoClose: 5000,
+      });
+    }
+  
+    // If all validations pass, proceed with API call
     api
       .post(`/user/create`, {
-        email: data.get("email"),
-        password: data.get("password"),
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-        gender: data.get("gender"),
-        dateOfBirth: data.get("dob"),
+        email,
+        password,
+        firstName,
+        lastName,
+        gender,
+        dateOfBirth,
       })
       .then((res) => {
         console.log(res);
-
+  
         toast.success(
-          "account created successful. you are going to be redirected to login page",
+          "Account created successfully. You will be redirected to the login page",
           {
             position: "bottom-right",
             autoClose: 4000,
@@ -74,6 +176,9 @@ export default function Register() {
         );
       });
   };
+  
+
+
 
   return (
     <ThemeProvider theme={theme}>

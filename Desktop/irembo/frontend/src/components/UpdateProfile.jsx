@@ -242,6 +242,9 @@ export default function UpdateProfile() {
                 </Grid>
               </Grid>
               {/** add togle button to unable 2fa or disable it **/}
+              <Typography component="h1" variant="h5">
+              Enable Two Factor Authentication
+            </Typography>
               <Grid item xs={12}>
                 <Switch
                   defaultChecked={isMfaEnabled}

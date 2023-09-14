@@ -26,10 +26,27 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
+  
     const email = data.get("email");
     const password = data.get("password");
-
+  
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if (!emailRegex.test(email)) {
+      return toast.error("Please enter a valid email address", {
+        position: "bottom-right",
+        autoClose: 5000,
+      });
+    }
+  
+    if (!password) {
+      return toast.error("Password cannot be empty", {
+        position: "bottom-right",
+        autoClose: 5000,
+      });
+    }
+  
     api
       .post(`/auth/login`, {
         email,
@@ -47,7 +64,7 @@ export default function Login() {
           const decoded = jwtDecode(token);
           localStorage.setItem("token", token);
           localStorage.setItem("loggedUser", JSON.stringify(decoded));
-
+  
           dispatch(logginUser(decoded));
           dispatch(loginMode());
         }
@@ -63,7 +80,8 @@ export default function Login() {
             autoClose: 5000,
           }
         );
-      }) .finally(() => {
+      })
+      .finally(() => {
         // Force page refresh
         location.reload();
       });
